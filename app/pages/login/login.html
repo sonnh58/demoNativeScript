@@ -1,0 +1,8 @@
+<StackLayout  #container>
+    <Image src="res://logo_login" stretch="none" horizontalAlignment="center"></Image>
+    <TextField hint="Địa chỉ Email" keyboardType="email" [(ngModel)]="user.email"
+               autocorrect="false" autocapitalizationType="none"></TextField>
+    <TextField hint="Mật khẩu" secure="true" [(ngModel)]="user.password"></TextField>
+    <Button [text]="isLoggingIn ? 'Đăng nhập' : 'Đăng ký'" class="submit-button" (tap)="submit()"></Button>
+    <Button [text]="isLoggingIn ? 'Đăng ký' : 'Quay lại Đăng nhập'" (tap)="toggleDisplay()"></Button>
+</StackLayout>
