@@ -1,9 +1,9 @@
-var validator = require("email-validator");
+let validator = require("email-validator");
 
 export class User {
-    email: string;
-    password: string;
-    isValidEmail() {
-        return validator.validate(this.email);
-    }
+  email: string;
+  password: string;
+  isValidEmail() {
+    return validator.validate(this.email);
+  }
 }

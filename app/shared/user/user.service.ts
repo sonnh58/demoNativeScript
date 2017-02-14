@@ -9,45 +9,46 @@ import { Config } from "../config";
 
 @Injectable()
 export class UserService {
-    constructor(private http: Http) {}
+  constructor(private http: Http) {}
 
-    register(user: User) {
-        let headers = new Headers();
-        headers.append("Content-Type","application/json");
+  register(user: User) {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
 
-        return this.http.post(
-            Config.apiUrl + "Users",
-            JSON.stringify({
-                Username: user.email,
-                Email: user.email,
-                Password: user.password,
-            }),
-            {headers: headers}
-        ).catch(this.handleErrors);
-    }
+    return this.http.post(
+      Config.apiUrl + "Users",
+      JSON.stringify({
+        Username: user.email,
+        Email: user.email,
+        Password: user.password
+      }),
+      { headers: headers }
+    )
+    .catch(this.handleErrors);
+  }
 
-    login(user: User) {
-        let headers = new Headers();
-        headers.append("Content-Type","application/json");
-        return this.http.post(
-            Config.apiUrl + "oauth/token",
-            JSON.stringify({
-                username: user.email,
-                password: user.password,
-                grant_type: "password"
-            }),
-            {headers: headers}
-        )
-            .map(response => response.json())
-            .do(data =>{
-                Config.token = data.Result.access_token;
-            })
-            .catch(this.handleErrors);
-    }
+  login(user: User) {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
 
-    handleErrors(error: Response) {
-        console.log(JSON.stringify(error.json()));
-        return Observable.throw(error);
-    }
+    return this.http.post(
+      Config.apiUrl + "oauth/token",
+      JSON.stringify({
+        username: user.email,
+        password: user.password,
+        grant_type: "password"
+      }),
+      { headers: headers }
+    )
+    .map(response => response.json())
+    .do(data => {
+      Config.token = data.Result.access_token;
+    })
+    .catch(this.handleErrors);
+  }
 
+  handleErrors(error: Response) {
+    console.log(JSON.stringify(error.json()));
+    return Observable.throw(error);
+  }
 }
